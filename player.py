@@ -7,7 +7,9 @@ class Player:
         return self.name
 
     def place_ships(self, ships):
+        player_ships = {}
         for ship_name, ship_length in ships:
             ship_position = input("Choose a location for the {}: ".format(ship_name))
             ship_orientation = input("Please choose an orientation ([V]ertical or [H]orizontal): ")
-            return ship_position, ship_orientation
+            player_ships[ship_name] = {"orientation":  ship_orientation, "position": tuple(ship_position), "length": ship_length}
+        return player_ships

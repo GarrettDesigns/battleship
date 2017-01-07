@@ -10,15 +10,14 @@ class Board:
         board = [[marker for space in range(self.BOARD_SIZE)] for row in range(self.BOARD_SIZE)]
         return board
 
-    def update_board(self, board, ship_placement):
+    def update_board(self, board, player_ships):
         current_board = list(board)
-        ship_coordinates, ship_orientation = ship_placement
-        ship_column, ship_row = tuple(ship_coordinates)
 
-        print('Ship Column: {}, Ship Row: {}, Ship Orientation: {}'.format(ship_column, ship_row,  ship_orientation.lower()))
-
-        for row in current_board:
-            print(row)
+        for ship_name, position_info in player_ships.items():
+            ship_column, ship_row = position_info["position"]
+            ship_orientation = position_info["orientation"]
+            ship_length = position_info["length"]
+            print("ship name: {} -- ship column: {} -- ship orientation: {} -- ship length: {}".format(ship_name, ship_column, ship_orientation, ship_length))
 
     def print_board(self, board):
         '''first print three spaces
