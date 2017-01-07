@@ -1,6 +1,7 @@
 class Board:
 
     BOARD_SIZE = 10
+    BOARD_HEADING = [chr(c) for c in range(ord('A'), ord('A') + BOARD_SIZE)]
 
     VERTICAL_SHIP = '|'
     HORIZONTAL_SHIP = '-'
@@ -34,7 +35,8 @@ class Board:
         By passing each number to chr() via the iterator variable c
         it will print out the letters A-J
         '''
-        print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + self.BOARD_SIZE)]))
+
+        print("   " + " ".join(self.BOARD_HEADING))
 
         row_num = 1
         for row in board:
