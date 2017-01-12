@@ -30,7 +30,7 @@ class Battleship:
 
     def __init__(self):
         self.clear_screen()
-        Board().print_board(self.initial_board)
+        print(self.initial_board)
         player_one_ships = self.player_one.place_ships(self.SHIP_INFO)
 
         Board().update_board(self.initial_board, player_one_ships)

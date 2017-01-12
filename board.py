@@ -7,7 +7,30 @@ class Board:
     HORIZONTAL_SHIP = '-'
 
     def create_board(self, marker):
-        board = [[marker for space in range(self.BOARD_SIZE)] for row in range(self.BOARD_SIZE)]
+
+        '''first print three spaces
+        c will take on the value of each number
+        specified in range(ord('A'), ord('A') + BOARD_SIZE).
+        passing each number to chr(c) generates
+        the letter equivalent of that number
+
+        In this case with board_SIZE == 10
+        and range(ord('A'), ord('A') + board_SIZE) == range(66, 76)
+
+        This loop will iterate though the numbers 66-76
+        By passing each number to chr() via the iterator variable c
+        it will print out the letters A-J
+        '''
+        heading = "   " + " ".join(self.BOARD_HEADING) + "\n"
+        row = [[marker for space in range(self.BOARD_SIZE)] for row in range(self.BOARD_SIZE)]
+
+        board = ''
+        board += heading
+
+        row_num = 1
+        for row_list in row:
+            board += str(row_num).rjust(2) + " " + (" ".join(row_list)) + "\n"
+            row_num += 1
         return board
 
     def update_board(self, board, player_ships):
@@ -22,26 +45,3 @@ class Board:
             ship_length = position_info["length"]
 
             print("ship name: {} -- ship column: {} -- ship row: {} -- ship orientation: {} -- ship length: {}".format(ship_name, self.BOARD_HEADING.index(ship_column.upper()), ship_row, ship_orientation, ship_length))
-
-    def print_board(self, board):
-        '''first print three spaces
-
-        c will take on the value of each number
-        specified in range(ord('A'), ord('A') + BOARD_SIZE).
-        passing each number to chr(c) generates
-        the letter equivalent of that number
-
-        In this case with board_SIZE == 10
-        and range(ord('A'), ord('A') + board_SIZE) == range(66, 76)
-
-        This loop will iterate though the numbers 66-76
-        By passing each number to chr() via the iterator variable c
-        it will print out the letters A-J
-        '''
-
-        print("   " + " ".join(self.BOARD_HEADING))
-
-        row_num = 1
-        for row in board:
-            print(str(row_num).rjust(2) + " " + (" ".join(row)))
-            row_num += 1
