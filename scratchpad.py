@@ -92,6 +92,7 @@ def place_ship(location, length, orientation, board, ship):
             board[row][column:(column + length)] = ['-' for num in range(length)]
         else:
             print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
+
     if orientation.lower() == 'v':
         v_pos = list()
 
@@ -145,7 +146,13 @@ place_ship(('f', 7), 3, 'h', game_board, 'Assault Ship')
 place_ship(('g', 7), 3, 'v', game_board, 'Cruiser')
 
 # should place a ship
-place_ship(('h', 4), 3, 'v', game_board, 'Cruiser')
-place_ship(('j', 7), 3, 'v', game_board, 'Cruiser')
+place_ship(('h', 4), 3, 'v', game_board, 'Destroyer')
+place_ship(('j', 7), 3, 'v', game_board, 'Deathstar')
+
+# should get a warning and no ship placement
+place_ship(('e', 8), 6, 'h', game_board, 'BattleStar')
+
+# should place a ship
+place_ship(('d', 8), 6, 'h', game_board, 'x-wing')
 
 print_board(game_board)
