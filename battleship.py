@@ -11,11 +11,6 @@ class Battleship:
         ("Patrol Boat", 2)
     ]
 
-    MISS = '.'
-    HIT = '*'
-    SUNK = '#'
-
-    EMPTY = 'O'
 
 # Instantiate Objects:
     # Board

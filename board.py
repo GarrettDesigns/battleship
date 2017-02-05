@@ -1,27 +1,16 @@
 class Board:
 
+    MISS = '.'
+    HIT = '*'
+    SUNK = '#'
+
+    EMPTY = 'O'
     BOARD_SIZE = 10
     BOARD_HEADING = [chr(c) for c in range(ord('A'), ord('A') + BOARD_SIZE)]
+    BOARD = [[EMPTY for space in BOARD_SIZE] for row in BOARD_SIZE]
 
     VERTICAL_SHIP = '|'
     HORIZONTAL_SHIP = '-'
-
-    def create_board(self, marker):
-        board = [[marker for space in range(self.BOARD_SIZE)] for row in range(self.BOARD_SIZE)]
-        return board
-
-    def update_board(self, board, player_ships):
-        current_board = list(board)
-        # print(current_board)
-        for row_num, row in enumerate(current_board):
-            print("row num: {}, row: {}".format(row_num, row))
-
-        for ship_name, position_info in player_ships.items():
-            ship_column, ship_row = position_info["position"]
-            ship_orientation = position_info["orientation"]
-            ship_length = position_info["length"]
-
-            print("ship name: {} -- ship column: {} -- ship row: {} -- ship orientation: {} -- ship length: {}".format(ship_name, self.BOARD_HEADING.index(ship_column.upper()), ship_row, ship_orientation, ship_length))
 
     def print_board(self, board):
         '''first print three spaces
