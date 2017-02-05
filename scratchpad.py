@@ -72,9 +72,9 @@ TILES = ('-', ' ', '-', ' ', '-', '||',
 
 
 BOARD_SIZE = 10
-board_heading = [chr(letter) for letter in range(ord('A'), ord('A') + BOARD_SIZE)]
+BOARD_HEADING = [chr(letter) for letter in range(ord('A'), ord('A') + BOARD_SIZE)]
 
-def print_board():
+def create_board():
     board = [['0' for space in range(BOARD_SIZE)] for row in range(BOARD_SIZE)]
     return board
 
@@ -83,38 +83,69 @@ def place_ship(location, length, orientation, board, ship):
 
     alpha = ''.join([chr(letter) for letter in range(65,75)]).lower()
     column, row = location
+
+    row = row - 1
     column = alpha.index(column)
 
     if orientation.lower() == 'h':
-        if '-' in board[row][column:(column + length)]:
-            print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
+        if '-' not in board[row][column:(column + length)] and '|' not in board[row][column:(column + length)]:
+            board[row][column:(column + length)] = ['-' for num in range(length)]
         else:
-            for space in board[row][column:(column + length)]:
-                board[row][column:(column + length)] = ['-' for num in range(length)]
+            print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
     if orientation.lower() == 'v':
-        for board_row in range(column,(column + length)):
-            # if board[board_row][column] != '0':
-            #     print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
-            # else:
+        v_pos = list()
+
+        for board_row in range(row, (row + length)):
+            v_pos.append(board[board_row][column])
+
+        if '-' not in v_pos and '|' not in v_pos:
+            for board_row in range(row,(row + length)):
                 board[board_row][column] = '|'
+        else:
+            print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
 
     game_board = board
 
-game_board = print_board()
+def print_board(board):
+    '''first print three spaces
+
+    c will take on the value of each number
+    specified in range(ord('A'), ord('A') + BOARD_SIZE).
+    passing each number to chr(c) generates
+    the letter equivalent of that number
+
+    In this case with board_SIZE == 10
+    and range(ord('A'), ord('A') + board_SIZE) == range(66, 76)
+
+    This loop will iterate though the numbers 66-76
+    By passing each number to chr() via the iterator variable c
+    it will print out the letters A-J
+    '''
+
+    print("   " + " ".join(BOARD_HEADING))
+
+    row_num = 1
+    for row in board:
+        print(str(row_num).rjust(2) + " " + (" ".join(row)))
+        row_num += 1
+
+game_board = create_board()
 
 # should place ship
 place_ship(('b',3), 5, 'h', game_board, 'Air Carrier')
-
-# should get a warning and no ship placement
 place_ship(('b',5), 5, 'h', game_board, 'Battleship')
 
-# should place ship
+# should get a warning and no ship placement
 place_ship(('a', 5), 3, 'h', game_board, 'Tugboat')
+
+# should place a ship
 place_ship(('f', 7), 3, 'h', game_board, 'Assault Ship')
 
 # should get a warning and no ship placement
-place_ship(('f', 7), 3, 'v', game_board, 'Gun Ship')
+place_ship(('g', 7), 3, 'v', game_board, 'Cruiser')
 
-print(board_heading)
-for row in game_board:
-    print(row)
+# should place a ship
+place_ship(('h', 4), 3, 'v', game_board, 'Cruiser')
+place_ship(('j', 7), 3, 'v', game_board, 'Cruiser')
+
+print_board(game_board)
