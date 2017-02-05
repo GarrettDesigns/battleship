@@ -86,9 +86,9 @@ def place_ship(location, length, orientation, board, ship):
     column = alpha.index(column)
 
     if orientation.lower() == 'h':
-        # if '-' in board[row][column:(column + length)]:
-        #     print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
-        # else:
+        if '-' in board[row][column:(column + length)]:
+            print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
+        else:
             for space in board[row][column:(column + length)]:
                 board[row][column:(column + length)] = ['-' for num in range(length)]
     if orientation.lower() == 'v':
