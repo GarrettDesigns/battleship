@@ -6,39 +6,44 @@ class Board:
 
     EMPTY = 'O'
     BOARD_SIZE = 10
-    BOARD_HEADING = [chr(c) for c in range(ord('A'), ord('A') + BOARD_SIZE)]
-    BOARD = [[EMPTY for space in BOARD_SIZE] for row in BOARD_SIZE]
 
     VERTICAL_SHIP = '|'
     HORIZONTAL_SHIP = '-'
 
-def place_ship(self, location, orientation, board, ship_info):
-    ship_name, ship_length = ship_info
-    alpha = ''.join(self.BOARD_HEADING).lower()
-    column, row = location
+    def __init__(self):
+        self.BOARD_HEADING = [chr(c) for c in range(ord('A'), ord('A') + self.BOARD_SIZE)]
+        self.board = [[self.EMPTY for space in range(self.BOARD_SIZE)] for row in range(self.BOARD_SIZE)]
 
-    row = row - 1
-    column = alpha.index(column)
+    def place_ship(self, location, orientation, ship_info):
+        game_board = self.board
+        ship_name, ship_length = ship_info
+        alpha = ''.join(self.BOARD_HEADING).lower()
+        column, row = location
 
-    if orientation.lower() == 'h':
-        if self.HORIZONTAL_SHIP not in board[row][column:(column + ship_length)] and self.VERTICAL_SHIP not in board[row][column:(column + length)]:
-            board[row][column:(column + ship_length)] = ['-' for num in range(ship_length)]
-        else:
-            print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
+        row = int(row) - 1
+        column = alpha.index(column)
 
-    if orientation.lower() == 'v':
-        v_pos = list()
+        if orientation.lower() == 'h':
+            if self.HORIZONTAL_SHIP not in game_board[row][column:(column + ship_length)] and self.VERTICAL_SHIP not in game_board[row][column:(column + ship_length)]:
+                game_board[row][column:(column + ship_length)] = ['-' for num in range(ship_length)]
+            else:
+                print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship_name))
 
-        for board_row in range(row, (row + ship_length)):
-            v_pos.append(board[board_row][column])
+        if orientation.lower() == 'v':
+            v_pos = list()
 
-        if self.HORIZONTAL_SHIP not in v_pos and self.VERTICAL_SHIP not in v_pos:
-            for board_row in range(row,(row + ship_length)):
-                board[board_row][column] = '|'
-        else:
-            print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
+            for board_row in range(row, (row + ship_length)):
+                v_pos.append(game_board[board_row][column])
 
-    def print_board(self, board):
+            if self.HORIZONTAL_SHIP not in v_pos and self.VERTICAL_SHIP not in v_pos:
+                for board_row in range(row,(row + ship_length)):
+                    game_board[board_row][column] = '|'
+            else:
+                print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship_name))
+
+        self.board = game_board
+
+    def print_board(self):
         '''first print three spaces
 
         c will take on the value of each number
@@ -57,6 +62,6 @@ def place_ship(self, location, orientation, board, ship_info):
         print("   " + " ".join(self.BOARD_HEADING))
 
         row_num = 1
-        for row in board:
+        for row in self.board:
             print(str(row_num).rjust(2) + " " + (" ".join(row)))
             row_num += 1
