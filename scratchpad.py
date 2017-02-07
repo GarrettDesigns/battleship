@@ -79,8 +79,6 @@ def create_board():
     return board
 
 def place_ship(location, length, orientation, board, ship):
-    board = board
-
     alpha = ''.join([chr(letter) for letter in range(65,75)]).lower()
     column, row = location
 
@@ -105,7 +103,7 @@ def place_ship(location, length, orientation, board, ship):
         else:
             print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship))
 
-    game_board = board
+    return board
 
 def print_board(board):
     '''first print three spaces
@@ -133,26 +131,26 @@ def print_board(board):
 game_board = create_board()
 
 # should place ship
-place_ship(('b',3), 5, 'h', game_board, 'Air Carrier')
-place_ship(('b',5), 5, 'h', game_board, 'Battleship')
+new_game_board = place_ship(('b',3), 5, 'h', game_board, 'Air Carrier')
+new_game_board = place_ship(('b',5), 5, 'h', game_board, 'Battleship')
 
 # should get a warning and no ship placement
-place_ship(('a', 5), 3, 'h', game_board, 'Tugboat')
+new_game_board = place_ship(('a', 5), 3, 'h', game_board, 'Tugboat')
 
 # should place a ship
-place_ship(('f', 7), 3, 'h', game_board, 'Assault Ship')
+new_game_board = place_ship(('f', 7), 3, 'h', game_board, 'Assault Ship')
 
 # should get a warning and no ship placement
-place_ship(('g', 7), 3, 'v', game_board, 'Cruiser')
+new_game_board = place_ship(('g', 7), 3, 'v', game_board, 'Cruiser')
 
 # should place a ship
-place_ship(('h', 4), 3, 'v', game_board, 'Destroyer')
-place_ship(('j', 7), 3, 'v', game_board, 'Deathstar')
+new_game_board = place_ship(('h', 4), 3, 'v', game_board, 'Destroyer')
+new_game_board = place_ship(('j', 7), 3, 'v', game_board, 'Deathstar')
 
 # should get a warning and no ship placement
-place_ship(('e', 8), 6, 'h', game_board, 'BattleStar')
+new_game_board = place_ship(('e', 8), 6, 'h', game_board, 'BattleStar')
 
 # should place a ship
-place_ship(('d', 8), 6, 'h', game_board, 'x-wing')
+new_game_board = place_ship(('d', 8), 6, 'h', game_board, 'x-wing')
 
-print_board(game_board)
+print_board(new_game_board)
