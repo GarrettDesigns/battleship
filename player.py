@@ -2,9 +2,11 @@ from board import Board
 
 class Player:
 
+    def __init__(self, name):
+        self.name = name
+
     def get_name(self):
-        self.name = input("What is your name?: ")
-        return self.name
+        print(self.name)
 
     # def place_ships(self, ships):
     #     player_ships = {}

@@ -14,10 +14,11 @@ class Battleship:
 
 # Instantiate Objects:
     # Player One
-    player_one = Player()
+    player_one = Player(input('What is your name: '))
     player_one_board = Board()
+
     # Player Two
-    player_two = Player()
+    player_two = Player(input('What is your name: '))
     player_two_board = Board()
 
     def clear_screen(self):
@@ -25,13 +26,11 @@ class Battleship:
 
     def __init__(self):
         self.clear_screen()
-        player_one_name = self.player_one.get_name()
-        player_two_name = self.player_two.get_name()
 
-        print("{}'s Board\n".format(player_one_name))
+        print("{}'s Board\n".format(player_one.get_name()))
         self.player_one_board.print_board()
 
-        print("{}'s Board\n".format(player_two_name))
+        print("{}'s Board\n".format(player_two.get_name()))
         self.player_two_board.print_board()
 
         player_one_carrier = input('Player One place ship: ')
