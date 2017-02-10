@@ -24,12 +24,12 @@ class Player(object):
 
         column, row = ship_position
 
-        if column in constants.VALID_LETTERS:
-            return ship_position
-        else:
+        if column not in constants.VALID_LETTERS:
             print("{}, is not a valid column valid lettered columns are {}"
                   .format(column, constants.VALID_LETTERS))
             self.get_ship_position(ship_name, ship_length)
+        else:
+            return ship_position
 
         # if row > constants.BOARD_SIZE:
         #     print('{} is not a valid row, valid rows are numbered 1-{}'
