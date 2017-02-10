@@ -1,56 +1,53 @@
-MISS = '.'
-HIT = '*'
-SUNK = '#'
+"""Module encapsulating all Board vars, classes and functions."""
 
-EMPTY = '0'
-BOARD_SIZE = 10
+import constants
 
-VERTICAL_SHIP = '|'
-HORIZONTAL_SHIP = '-'
-
-BOARD_HEADING = [chr(c) for c in range(ord('A'), ord('A') + BOARD_SIZE)]
-EMPTY_BOARD = [[EMPTY for space in range(BOARD_SIZE)] for row in range(BOARD_SIZE)]
 
 class Board:
+    """Class that defines a the Board object for the game."""
 
     def __init__(self):
-        self.board = EMPTY_BOARD
+        """Class initialization method instantiating empty board var."""
+        self.board = constants.EMPTY_BOARD
 
-    def update_board(self, name, length, orientation, position):
+    def get_board(self):
+        """Method allowing for retrieval of raw board list."""
+        return self.board
 
-        alpha = ''.join(BOARD_HEADING).lower()
+    def update_board(self, ship_name, ship_length, orientation, position):
+        """Class method allowing for updating of players board."""
+        column = constants.VALID_LETTERS.index(position[0])
+        row = int(position[1]) - 1
 
-        ship_name = name
-        orientation = orientation
-        ship_length = length
-
-        column, row = position
-
-        column = alpha.index(column)
-        row = int(row) - 1
-
+        print(column, row)
         if orientation.lower() == 'h':
-            if HORIZONTAL_SHIP not in self.board[row][column:(column + ship_length)] and VERTICAL_SHIP not in self.board[row][column:(column + ship_length)]:
-                self.board[row][column:(column + ship_length)] = ['-' for num in range(ship_length)]
-            else:
-                print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship_name))
-
+            # if HORIZONTAL_SHIP and VERTICAL_SHIP not in \
+            #         self.board[row][column:(column + ship_length)]:
+            self.board[row][column:(column + ship_length)] = \
+                ['-' for num in range(ship_length)]
+            # else:
+            #     print('Sorry, {} cannot be placed, '
+            #           'you already have a ship there,'
+            #           ' please choose another location'.format(ship_name))
         if orientation.lower() == 'v':
-            v_pos = list()
-
+            # v_pos = list()
+            # for board_row in range(row, (row + ship_length)):
+            #     v_pos.append(self.board[board_row][column])
+            #
+            # if HORIZONTAL_SHIP and VERTICAL_SHIP not in v_pos:
             for board_row in range(row, (row + ship_length)):
-                v_pos.append(self.board[board_row][column])
-
-            if HORIZONTAL_SHIP not in v_pos and VERTICAL_SHIP not in v_pos:
-                for board_row in range(row,(row + ship_length)):
-                    self.board[board_row][column] = '|'
-            else:
-                print('Sorry, {} cannot be placed, you already have a ship there, please replace your ship'.format(ship_name))
+                self.board[board_row][column] = '|'
+            # else:
+            #     print('Sorry, {} cannot be placed, '
+            #           'you already have a ship there,'
+            #           ' please choose another location'.format(ship_name))
 
         return self.board
 
-    def print_board(self, board=EMPTY_BOARD):
-        '''first print three spaces
+    def print_board(self, board=constants.EMPTY_BOARD):
+        """Function to print the game board.
+
+        First print three spaces.
 
         c will take on the value of each number
         specified in range(ord('A'), ord('A') + BOARD_SIZE).
@@ -63,9 +60,8 @@ class Board:
         This loop will iterate though the numbers 66-76
         By passing each number to chr() via the iterator variable c
         it will print out the letters A-J
-        '''
-
-        print("   " + " ".join(BOARD_HEADING))
+        """
+        print("   " + " ".join(constants.BOARD_HEADING))
 
         row_num = 1
         for row in board:

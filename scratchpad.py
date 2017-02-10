@@ -3,20 +3,30 @@
 value = "Treehouse Rocks. rocks are cool. I like using Treehouse! What do you use?"
 
 def word_count(value):
-    word_count = {}
-    sentence  = ""
-    punctuation = ",.'!?"
+    # word_count = {}
+    # sentence = ""
+    # punctuation = ",.'!?"
+    #
+    # for letter in value:
+    #     if letter not in punctuation:
+    #         sentence += letter.lower()
+    #
+    # for word in sentence.split(' '):
+    #     if word not in word_count.keys():
+    #         word_count[word] = 1
+    #     else:
+    #         word_count[word] += 1
+    #
+    # return word_count
 
-    for letter in value:
-        if letter not in punctuation:
-            sentence += letter.lower()
-
-    for word in sentence.split(' '):
-        if word not in word_count.keys():
+def word_count(words):
+    words = words.lower().split()
+    word_count = dict()
+    for word in words:
+        if word not in word_count:
             word_count[word] = 1
         else:
             word_count[word] += 1
-
     return word_count
 
 def combo(one, two):
