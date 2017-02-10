@@ -19,28 +19,12 @@ class Board:
         column = constants.VALID_LETTERS.index(position[0])
         row = int(position[1]) - 1
 
-        print(column, row)
         if orientation.lower() == 'h':
-            # if HORIZONTAL_SHIP and VERTICAL_SHIP not in \
-            #         self.board[row][column:(column + ship_length)]:
             self.board[row][column:(column + ship_length)] = \
                 ['-' for num in range(ship_length)]
-            # else:
-            #     print('Sorry, {} cannot be placed, '
-            #           'you already have a ship there,'
-            #           ' please choose another location'.format(ship_name))
         if orientation.lower() == 'v':
-            # v_pos = list()
-            # for board_row in range(row, (row + ship_length)):
-            #     v_pos.append(self.board[board_row][column])
-            #
-            # if HORIZONTAL_SHIP and VERTICAL_SHIP not in v_pos:
             for board_row in range(row, (row + ship_length)):
                 self.board[board_row][column] = '|'
-            # else:
-            #     print('Sorry, {} cannot be placed, '
-            #           'you already have a ship there,'
-            #           ' please choose another location'.format(ship_name))
 
         return self.board
 
