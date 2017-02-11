@@ -23,3 +23,4 @@ EMPTY_BOARD = [[EMPTY for space in range(BOARD_SIZE)]
                for row in range(BOARD_SIZE)]
 
 VALID_LETTERS = ''.join(BOARD_HEADING).lower()
+VALID_ROWS = ', '.join(str(num) for num in list(range(1, BOARD_SIZE + 1)))

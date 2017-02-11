@@ -2,6 +2,7 @@
 
 from player import Player
 import constants
+import functions
 
 
 class Battleship(object):
@@ -22,13 +23,9 @@ class Battleship(object):
 
         self.player_two.place_ships(constants.SHIP_INFO)
 
-    def clear_screen(self):
-        """Function that provides a clear screen for program."""
-        print("\033c", end="")
-
     def __init__(self):
         """Class initialization method."""
-        self.clear_screen()
+        functions.clear_screen()
         self.setup()
 
 

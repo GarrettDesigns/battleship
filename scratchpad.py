@@ -2,7 +2,7 @@
 # value = "Hi my name is Garrett! I don't like to fish, I like crafting. I do like eating fish though. Crafting is fun."
 value = "Treehouse Rocks. rocks are cool. I like using Treehouse! What do you use?"
 
-def word_count(value):
+# def word_count(value):
     # word_count = {}
     # sentence = ""
     # punctuation = ",.'!?"
@@ -142,25 +142,31 @@ game_board = create_board()
 
 # should place ship
 new_game_board = place_ship(('b',3), 5, 'h', game_board, 'Air Carrier')
-new_game_board = place_ship(('b',5), 5, 'h', game_board, 'Battleship')
 
-# should get a warning and no ship placement
-new_game_board = place_ship(('a', 5), 3, 'h', game_board, 'Tugboat')
+SHIP_INFO = [
+    ("Aircraft Carrier", 5),
+    ("Battleship", 4),
+    ("Submarine", 3),
+    ("Cruiser", 3),
+    ("Patrol Boat", 2)
+]
 
-# should place a ship
-new_game_board = place_ship(('f', 7), 3, 'h', game_board, 'Assault Ship')
+board_heading_str = ', '.join(str(alpha).lower() for alpha in BOARD_HEADING)
+for ship_name, ship_length in SHIP_INFO:
+    while True:
 
-# should get a warning and no ship placement
-new_game_board = place_ship(('g', 7), 3, 'v', game_board, 'Cruiser')
+        # 11. Prompt player for guess.
+        position = input("Player One, Enter a location for {}: ".format(ship_name))
 
-# should place a ship
-new_game_board = place_ship(('h', 4), 3, 'v', game_board, 'Destroyer')
-new_game_board = place_ship(('j', 7), 3, 'v', game_board, 'Deathstar')
+        if position[0] not in board_heading_str:
+            print("Your column must be a letter.")
+            continue
 
-# should get a warning and no ship placement
-new_game_board = place_ship(('e', 8), 6, 'h', game_board, 'BattleStar')
+        orientation = input('Player One, Enter an orientation for {}'.format(ship_name))
 
-# should place a ship
-new_game_board = place_ship(('d', 8), 6, 'h', game_board, 'x-wing')
+        if orientation not in 'hv':
+            print('You must pick either "h" or "v"')
+            continue
 
-print_board(new_game_board)
+        # If we get here, the entry was vaild, so beak out
+        break
