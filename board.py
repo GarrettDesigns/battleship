@@ -3,41 +3,16 @@
 import constants
 
 
-class Board:
-    """Class that defines a the Board object for the game."""
+class Board(object):
+    """Class that defines a the Board object for the game.
+
+    Contains methods and attributes that flesh out the Board object.
+    """
 
     def __init__(self):
         """Class initialization method instantiating empty board var."""
-        self.board = constants.EMPTY_BOARD
-
-    def get_board(self):
-        """Method allowing for retrieval of raw board list."""
-        return self.board
-
-        # space_for_ship = (constants.BOARD_SIZE - constants.VALID_LETTERS.index(ship_coordinates)) + ship_length
-
-    def ship_exists(self, ship_name, ship_length, position, orientation):
-        """Check if a ship already occupies position of player input."""
-        column = constants.VALID_LETTERS.index(position[0])
-        row = int(position[1:]) - 1
-
-        if orientation.lower() == 'h':
-            if constants.HORIZONTAL_SHIP and constants.VERTICAL_SHIP in \
-                    self.board[row][column:(column + ship_length)]:
-                return True
-            else:
-                return False
-
-        if orientation.lower() == 'v':
-            v_pos = list()
-
-            for board_row in range(row, (row + ship_length)):
-                v_pos.append(self.board[board_row][column])
-
-            if constants.HORIZONTAL_SHIP and constants.VERTICAL_SHIP in v_pos:
-                return True
-            else:
-                return False
+        self.board = [[constants.EMPTY for space in range(constants.BOARD_SIZE)]
+                      for row in range(constants.BOARD_SIZE)]
 
     def update_board(self, ship_name, ship_length, orientation, position):
         """Class method allowing for updating of players board."""
