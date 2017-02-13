@@ -13,8 +13,8 @@ class Battleship(object):
         self.player_one = Player()
         self.player_two = Player("Player Two")
 
-        self.player_one.turn(self.player_two.name)
-        self.player_two.turn(self.player_one.name)
+        self.player_one.set_up_board(self.player_two.name)
+        self.player_two.set_up_board(self.player_one.name)
 
         input('Please pass the board to {}, and look away.\nPress Enter to continue.'.format(self.player_one.name))
 

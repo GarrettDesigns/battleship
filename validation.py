@@ -34,10 +34,10 @@ def hit_or_miss(coordinates, board):
     row = int(coordinates[1:]) - 1
 
     if board[row][column] == '-' or board[row][column] == '|':
-        print('hit')
+        print('***********\n*** HIT ***\n***********')
         return True
     else:
-        print('miss')
+        print('***********\n*** MISS ***\n***********')
         return False
 
 

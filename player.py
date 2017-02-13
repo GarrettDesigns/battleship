@@ -84,19 +84,16 @@ class Player(object):
         input('Please pass the game to {}, and look away.'
               '\nPress Enter to continue'.format(other_player))
 
-    def turn(self, other_player, shooting=False):
+    def set_up_board(self, other_player):
         """Method to describe logic governing each player's turn."""
-        if not shooting:
-            functions.clear_screen()
+        functions.clear_screen()
 
-            input('{} prepare to place your fleet.'
-                  ' Please have {} look away and press Enter to begin.'
-                  .format(self.name, other_player))
+        input('{} prepare to place your fleet.'
+              ' Please have {} look away and press Enter to begin.'
+              .format(self.name, other_player))
 
-            self.board.display()
-            self.place_ships(constants.SHIP_INFO)
-        else:
-            self.shoot()
+        self.board.display()
+        self.place_ships(constants.SHIP_INFO)
 
     def __init__(self, player='Player One'):
         """Override class __init__ method."""
