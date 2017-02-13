@@ -107,7 +107,6 @@ class Player(object):
                 board[row][column] = constants.MISS
                 self.shots_board.get_board()[row][column] = constants.MISS
 
-        functions.clear_screen()
         input('Please pass the game to {}, and look away.'
               '\nPress Enter to continue'.format(other_player.name))
 

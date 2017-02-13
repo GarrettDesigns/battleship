@@ -1,6 +1,7 @@
 """Module containing methods for performing player input validation."""
 
 import constants
+import functions
 
 
 def ship_exists(ship_name, board, ship_length, coordinates, orientation):
@@ -37,9 +38,11 @@ def hit_or_miss(coordinates, board):
     row = int(coordinates[1:]) - 1
 
     if board[row][column] == '-' or board[row][column] == '|':
+            functions.clear_screen()
         print('***********\n*** HIT ***\n***********')
         return True
     else:
+        functions.clear_screen()
         print('************\n*** MISS ***\n************')
         return False
 

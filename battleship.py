@@ -17,6 +17,7 @@ class Battleship(object):
         self.player_one.set_up_board(self.player_two.name)
         self.player_two.set_up_board(self.player_one.name)
 
+        functions.clear_screen()
         input('Please pass the board to {}, and look away.\n'
               'Press Enter to continue.'.format(self.player_one.name))
 
@@ -31,6 +32,10 @@ class Battleship(object):
 
             self.player_one.shoot(self.player_two)
             self.player_two.shoot(self.player_one)
+
+            # test = input('Clear Player One ships?')
+            # if test == 'y':
+            #     self.player_one.ships_list = []
 
 
 Battleship()
