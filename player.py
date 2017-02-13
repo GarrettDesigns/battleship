@@ -56,7 +56,8 @@ class Player(object):
                 self.shot_list.append(shot)
                 return shot
             else:
-                print("You've already shot at that location. Please enter a new target location\n")
+                print("You've already shot at that location."
+                      "Please enter a new target location\n")
                 return self.get_shot()
         else:
             return self.get_shot()
@@ -80,7 +81,8 @@ class Player(object):
                 board[row][column] = constants.MISS
                 self.shots_board.get_board()[row][column] = constants.MISS
 
-        input('Please pass the game to {}, and look away.\nPress Enter to continue'.format(other_player))
+        input('Please pass the game to {}, and look away.'
+              '\nPress Enter to continue'.format(other_player))
 
     def turn(self, other_player, shooting=False):
         """Method to describe logic governing each player's turn."""
