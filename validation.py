@@ -38,7 +38,7 @@ def hit_or_miss(coordinates, board):
     row = int(coordinates[1:]) - 1
 
     if board[row][column] == '-' or board[row][column] == '|':
-            functions.clear_screen()
+        functions.clear_screen()
         print('***********\n*** HIT ***\n***********')
         return True
     else:
