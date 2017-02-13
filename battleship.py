@@ -24,8 +24,8 @@ class Battleship(object):
         self.setup()
 
         while True:
-            self.player_one.shoot(self.player_two.name, self.player_two.board.get_board())
-            self.player_two.shoot(self.player_one.name, self.player_one.board.get_board())
+            self.player_one.shoot(self.player_two)
+            self.player_two.shoot(self.player_one)
 
 
 Battleship()

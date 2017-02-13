@@ -9,6 +9,24 @@ import validation
 class Player(object):
     """Define the player class."""
 
+    def add_to_ship_list(self, orientation, coordinates, ship_length):
+        """Add player ships to list of ships on board."""
+        column = constants.VALID_LETTERS.index(coordinates[0])
+
+        if orientation == 'h':
+            row = coordinates[1:]
+            columns = constants.VALID_LETTERS[column:(column + ship_length)]
+
+            for column in columns:
+                self.ships_list.append(constants.VALID_LETTERS[constants.VALID_LETTERS.index(column)] + row)
+
+        if orientation == 'v':
+            row = int(coordinates[1:])
+            rows = list(range(row, row + ship_length))
+
+            for row in rows:
+                self.ships_list.append(constants.VALID_LETTERS[column] + str(row))
+
     def place_ships(self, ships):
         """Place user ships on board object.
 
@@ -38,6 +56,7 @@ class Player(object):
 
                 break  # if we get here ship placement is valid so break out.
 
+            self.add_to_ship_list(orientation, coordinates, ship_length)
             self.board.update_board(**ship)
 
             functions.clear_screen()
@@ -48,6 +67,7 @@ class Player(object):
 
     def get_shot(self):
         """Ask player to pick a location to shoot at."""
+        print(self.ships_list)
         shot = input("{}, enter a target location"
                      " on your opponents board: ".format(self.name))
 
@@ -62,8 +82,10 @@ class Player(object):
         else:
             return self.get_shot()
 
-    def shoot(self, other_player, board):
+    def shoot(self, other_player):
         """Player method for guessing location of enemy ships."""
+        board = other_player.board.get_board()
+
         functions.clear_screen()
         self.shots_board.display()
         self.board.display()
@@ -77,12 +99,13 @@ class Player(object):
             if validation.hit_or_miss(coordinates, board):
                 board[row][column] = constants.HIT
                 self.shots_board.get_board()[row][column] = constants.HIT
+                other_player.ships_list.remove(str(coordinates))
             else:
                 board[row][column] = constants.MISS
                 self.shots_board.get_board()[row][column] = constants.MISS
 
         input('Please pass the game to {}, and look away.'
-              '\nPress Enter to continue'.format(other_player))
+              '\nPress Enter to continue'.format(other_player.name))
 
     def set_up_board(self, other_player):
         """Method to describe logic governing each player's turn."""
@@ -102,3 +125,4 @@ class Player(object):
         self.board = Board()
         self.shots_board = Board()
         self.shot_list = list()
+        self.ships_list = list()

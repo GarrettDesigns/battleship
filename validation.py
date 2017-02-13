@@ -18,8 +18,11 @@ def ship_exists(ship_name, board, ship_length, coordinates, orientation):
     if orientation.lower() == 'v':
         v_pos = list()
 
-        for row in range(row, (row + ship_length)):
-            v_pos.append(board[row][column])
+        try:
+            for row in range(row, (row + ship_length)):
+                v_pos.append(board[row][column])
+        except IndexError:
+            return None
 
         if constants.HORIZONTAL_SHIP in v_pos \
                 or constants.VERTICAL_SHIP in v_pos:
@@ -37,7 +40,7 @@ def hit_or_miss(coordinates, board):
         print('***********\n*** HIT ***\n***********')
         return True
     else:
-        print('***********\n*** MISS ***\n***********')
+        print('************\n*** MISS ***\n************')
         return False
 
 
