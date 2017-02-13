@@ -29,13 +29,14 @@ class Player(object):
                     "ship_length": ship_length
                     }
 
-                if validation.collision(ship_name, self.board.get_board(), **ship):
+                if validation.collision(ship_name,
+                                        self.board.get_board(), **ship):
                     continue
 
                 if validation.out_of_bounds(**ship):
                     continue
 
-                break  # if we get here a valid ship placement was chosen so break out
+                break  # if we get here ship placement is valid so break out.
 
             self.board.update_board(**ship)
 
@@ -47,7 +48,8 @@ class Player(object):
 
     def shoot(self, board):
         """Player method for guessing location of enemy ships."""
-        coordinates = input("{}, enter a target location on your opponents board".format(self.name))
+        coordinates = input("{}, enter a target location"
+                            "on your opponents board".format(self.name))
 
         column = constants.VALID_LETTERS.index(coordinates[0])
         row = int(coordinates[1:])

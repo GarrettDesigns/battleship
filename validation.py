@@ -21,7 +21,8 @@ def ship_exists(ship_name, board, ship_length, coordinates, orientation):
         for row in range(row, (row + ship_length)):
             v_pos.append(board[row][column])
 
-        if constants.HORIZONTAL_SHIP in v_pos or constants.VERTICAL_SHIP in v_pos:
+        if constants.HORIZONTAL_SHIP in v_pos \
+                or constants.VERTICAL_SHIP in v_pos:
             return True
         else:
             return False
