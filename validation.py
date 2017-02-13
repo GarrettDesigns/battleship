@@ -31,13 +31,21 @@ def ship_exists(ship_name, board, ship_length, coordinates, orientation):
 def hit_or_miss(coordinates, board):
     """Check whether player shot is a hit or miss."""
     column = constants.VALID_LETTERS.index(coordinates[0])
-    row = int(coordinates[1:])
+    row = int(coordinates[1:]) - 1
 
     if board[row][column] == '-' or board[row][column] == '|':
         print('hit')
         return True
     else:
         print('miss')
+        return False
+
+
+def is_valid_shot(shot, shot_list):
+    """Define logic to ensure the player doesn't shoot the same spot twice."""
+    if shot not in shot_list:
+        return True
+    else:
         return False
 
 

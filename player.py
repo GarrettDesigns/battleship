@@ -46,20 +46,41 @@ class Player(object):
         input('{}, your ships have been placed!'
               ' Press Enter to continue.'.format(self.name))
 
-    def shoot(self, board):
+    def get_shot(self):
+        """Ask player to pick a location to shoot at."""
+        shot = input("{}, enter a target location"
+                     " on your opponents board: ".format(self.name))
+
+        if validation.are_valid_coordinates(shot):
+            if validation.is_valid_shot(shot, self.shot_list):
+                self.shot_list.append(shot)
+                return shot
+            else:
+                print("You've already shot at that location. Please enter a new target location\n")
+                return self.get_shot()
+        else:
+            return self.get_shot()
+
+    def shoot(self, other_player, board):
         """Player method for guessing location of enemy ships."""
-        coordinates = input("{}, enter a target location"
-                            "on your opponents board".format(self.name))
+        functions.clear_screen()
+        self.shots_board.display()
+        self.board.display()
+
+        coordinates = self.get_shot()
 
         column = constants.VALID_LETTERS.index(coordinates[0])
-        row = int(coordinates[1:])
+        row = int(coordinates[1:]) - 1
 
         if validation.are_valid_coordinates(coordinates):
             if validation.hit_or_miss(coordinates, board):
                 board[row][column] = constants.HIT
-                self.shots_board[row][column]
+                self.shots_board.get_board()[row][column] = constants.HIT
             else:
                 board[row][column] = constants.MISS
+                self.shots_board.get_board()[row][column] = constants.MISS
+
+        input('Please pass the game to {}, and look away.\nPress Enter to continue'.format(other_player))
 
     def turn(self, other_player, shooting=False):
         """Method to describe logic governing each player's turn."""
@@ -80,4 +101,5 @@ class Player(object):
         self.name = input("{}, Please enter your name:"
                           .format(player)).capitalize()
         self.board = Board()
-        self.shots_board = Board().get_board()
+        self.shots_board = Board()
+        self.shot_list = list()
