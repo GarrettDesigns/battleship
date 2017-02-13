@@ -1,6 +1,8 @@
 """Module encapsulating all Board vars, classes and functions."""
 
 import constants
+from copy import deepcopy
+import functions
 
 
 class Board(object):
@@ -11,13 +13,12 @@ class Board(object):
 
     def __init__(self):
         """Class initialization method instantiating empty board var."""
-        self.board = [[constants.EMPTY for space in range(constants.BOARD_SIZE)]
-                      for row in range(constants.BOARD_SIZE)]
+        self.board = deepcopy(constants.EMPTY_BOARD)
 
-    def update_board(self, ship_name, ship_length, orientation, position):
+    def update_board(self, ship_length, orientation, coordinates):
         """Class method allowing for updating of players board."""
-        column = constants.VALID_LETTERS.index(position[0])
-        row = int(position[1:]) - 1
+        column = constants.VALID_LETTERS.index(coordinates[0])
+        row = int(coordinates[1:]) - 1
 
         if orientation.lower() == 'h':
             self.board[row][column:(column + ship_length)] = \
@@ -26,28 +27,10 @@ class Board(object):
             for board_row in range(row, (row + ship_length)):
                 self.board[board_row][column] = '|'
 
+    def get_board(self):
+        """Get board list for iteration."""
         return self.board
 
-    def print_board(self, board=constants.EMPTY_BOARD):
-        """Function to print the game board.
-
-        First print three spaces.
-
-        c will take on the value of each number
-        specified in range(ord('A'), ord('A') + BOARD_SIZE).
-        passing each number to chr(c) generates
-        the letter equivalent of that number
-
-        In this case with board_SIZE == 10
-        and range(ord('A'), ord('A') + board_SIZE) == range(66, 76)
-
-        This loop will iterate though the numbers 66-76
-        By passing each number to chr() via the iterator variable c
-        it will print out the letters A-J
-        """
-        print("   " + " ".join(constants.BOARD_HEADING))
-
-        row_num = 1
-        for row in board:
-            print(str(row_num).rjust(2) + " " + (" ".join(row)))
-            row_num += 1
+    def display(self):
+        """Use print board to display the contents of the board."""
+        return functions.print_board(self.board)

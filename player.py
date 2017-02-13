@@ -1,5 +1,7 @@
 """Module that contains all Player classes, vars and functions."""
 
+from board import Board
+import constants
 import functions
 import validation
 
@@ -7,64 +9,73 @@ import validation
 class Player(object):
     """Define the player class."""
 
-    def get_ship_coordinates(self, ship_name, ship_length):
-        """Ask input from user on where to put each ship."""
-        prompt = "{}, Choose a position for the {} ({} spaces):"
-        ship_coordinates = input(prompt.format(
-            self.name, ship_name, ship_length))
-
-        if validation.are_valid_coordinates(ship_coordinates, ship_length):
-            return ship_coordinates
-        else:
-            return self.get_ship_coordinates(ship_name, ship_length)
-
-    def get_ship_orientation(self):
-        """Method to get ship orientation input from player."""
-        ship_orientation = input("{}, Please choose an orientation"
-                                 " [V]ertical or [H]orizontal): "
-                                 .format(self.name)).lower()
-
-        if validation.is_valid_orientation(ship_orientation):
-            return ship_orientation
-        else:
-            return self.get_ship_orientation()
-
-    def place_ships(self, ships, board):
+    def place_ships(self, ships):
         """Place user ships on board object.
 
         This method allowing players to run through a list of ships
         passed in and place each one simultaneously updating the players board.
         """
-        functions.clear_screen()
-
         for ship_name, ship_length in ships:
+
             while True:
+                coordinates = functions \
+                    .get_ship_coordinates(ship_name, ship_length, self.name)
 
-                coordinates = self.get_ship_coordinates(ship_name, ship_length)
-                orientation = self.get_ship_orientation()
+                orientation = functions.get_ship_orientation()
 
-                if validation.collision(ship_name, ship_length,
-                                        coordinates, orientation, board):
+                ship = {
+                    "orientation":  orientation,
+                    "coordinates": coordinates,
+                    "ship_length": ship_length
+                    }
+
+                if validation.collision(ship_name, self.board.get_board(), **ship):
                     continue
 
-                if validation.out_of_bounds(ship_length, coordinates,
-                                            orientation):
+                if validation.out_of_bounds(**ship):
                     continue
 
-                break
+                break  # if we get here a valid ship placement was chosen so break out
 
-            ship_data = {
-                "orientation":  orientation,
-                "position": coordinates,
-                "ship_name": ship_name,
-                "ship_length": ship_length
-                }
+            self.board.update_board(**ship)
 
             functions.clear_screen()
+            self.board.display()
 
-            board.print_board(board.update_board(**ship_data))
+        input('{}, your ships have been placed!'
+              ' Press Enter to continue.'.format(self.name))
 
-    def __init__(self, player='Player One', **kwargs):
+    def shoot(self, board):
+        """Player method for guessing location of enemy ships."""
+        coordinates = input("{}, enter a target location on your opponents board".format(self.name))
+
+        column = constants.VALID_LETTERS.index(coordinates[0])
+        row = int(coordinates[1:])
+
+        if validation.are_valid_coordinates(coordinates):
+            if validation.hit_or_miss(coordinates, board):
+                board[row][column] = constants.HIT
+                self.shots_board[row][column]
+            else:
+                board[row][column] = constants.MISS
+
+    def turn(self, other_player, shooting=False):
+        """Method to describe logic governing each player's turn."""
+        if not shooting:
+            functions.clear_screen()
+
+            input('{} prepare to place your fleet.'
+                  ' Please have {} look away and press Enter to begin.'
+                  .format(self.name, other_player))
+
+            self.board.display()
+            self.place_ships(constants.SHIP_INFO)
+        else:
+            self.shoot()
+
+    def __init__(self, player='Player One'):
         """Override class __init__ method."""
         self.name = input("{}, Please enter your name:"
                           .format(player)).capitalize()
+        self.board = Board()
+        self.shots_board = Board().get_board()
