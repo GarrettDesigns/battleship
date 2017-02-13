@@ -100,6 +100,23 @@ def is_valid_orientation(ship_orientation):
         return True
 
 
+def player_sunk(player_one, player_two):
+    """Detect if either player has lost all of their ships."""
+    if not player_one.ships_list:
+        print('**************\n*** WINNER ***\n**************')
+        print("{} has sunk {}'s Battleship!"
+              .format(player_two.name, player_one.name))
+        return True
+
+    if not player_two.ships_list:
+        print('**************\n*** WINNER ***\n**************')
+        print("{} has sunk {}'s Battleship!"
+              .format(player_one.name, player_two.name))
+        return True
+
+    return False
+
+
 def collision(ship_name, board, ship_length,
               coordinates, orientation):
     """Check if ship collides with another ship.

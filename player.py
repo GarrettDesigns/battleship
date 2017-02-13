@@ -18,14 +18,17 @@ class Player(object):
             columns = constants.VALID_LETTERS[column:(column + ship_length)]
 
             for column in columns:
-                self.ships_list.append(constants.VALID_LETTERS[constants.VALID_LETTERS.index(column)] + row)
+                self.ships_list \
+                    .append(constants.VALID_LETTERS[constants.VALID_LETTERS
+                            .index(column)] + row)
 
         if orientation == 'v':
             row = int(coordinates[1:])
             rows = list(range(row, row + ship_length))
 
             for row in rows:
-                self.ships_list.append(constants.VALID_LETTERS[column] + str(row))
+                self.ships_list \
+                    .append(constants.VALID_LETTERS[column] + str(row))
 
     def place_ships(self, ships):
         """Place user ships on board object.
@@ -104,6 +107,7 @@ class Player(object):
                 board[row][column] = constants.MISS
                 self.shots_board.get_board()[row][column] = constants.MISS
 
+        functions.clear_screen()
         input('Please pass the game to {}, and look away.'
               '\nPress Enter to continue'.format(other_player.name))
 
