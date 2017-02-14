@@ -12,7 +12,7 @@ class Board(object):
     """
 
     def __init__(self):
-        """Class initialization method instantiating empty board var."""
+        """Class initialization method instantiating empty board."""
         self.board = deepcopy(constants.EMPTY_BOARD)
 
     def update_board(self, ship_length, orientation, coordinates):

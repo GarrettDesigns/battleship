@@ -28,30 +28,31 @@ def print_board(board):
     """
     print("   " + " ".join(constants.BOARD_HEADING))
 
-    row_num = 1
-    for row in board:
-        print(str(row_num).rjust(2) + " " + (" ".join(row)))
-        row_num += 1
+    for row_num, row in enumerate(board):
+        print(str(row_num + 1).rjust(2) + " " + (" ".join(row)))
 
 
-def get_ship_coordinates(ship_name, ship_length, player_name):
+def get_ship_coordinates(ship_name, ship_length, player_name,
+                         player_board, shots_board=''):
     """Ask input from user on where to put each ship."""
     prompt = "{}, Choose a position for the {} ({} spaces):"
     ship_coordinates = input(prompt
                              .format(player_name, ship_name, ship_length))
 
-    if validation.are_valid_coordinates(ship_coordinates):
+    if validation.are_valid_coordinates(ship_coordinates,
+                                        player_board, shots_board):
         return ship_coordinates
     else:
-        return get_ship_coordinates(ship_name, ship_length, player_name)
+        return get_ship_coordinates(ship_name, ship_length,
+                                    player_name, player_board, shots_board)
 
 
-def get_ship_orientation():
+def get_ship_orientation(player_board):
     """Method to get ship orientation input from player."""
     ship_orientation = input("Please choose an orientation"
                              " [V]ertical or [H]orizontal): ")
 
-    if validation.is_valid_orientation(ship_orientation):
+    if validation.is_valid_orientation(ship_orientation, player_board):
         return ship_orientation
     else:
-        return get_ship_orientation()
+        return get_ship_orientation(player_board)

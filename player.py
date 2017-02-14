@@ -40,9 +40,10 @@ class Player(object):
 
             while True:
                 coordinates = functions \
-                    .get_ship_coordinates(ship_name, ship_length, self.name)
+                    .get_ship_coordinates(ship_name, ship_length,
+                                          self.name, self.board)
 
-                orientation = functions.get_ship_orientation()
+                orientation = functions.get_ship_orientation(self.board)
 
                 ship = {
                     "orientation":  orientation,
@@ -50,11 +51,11 @@ class Player(object):
                     "ship_length": ship_length
                     }
 
-                if validation.collision(ship_name,
+                if validation.collision(self.board, ship_name,
                                         self.board.get_board(), **ship):
                     continue
 
-                if validation.out_of_bounds(**ship):
+                if validation.out_of_bounds(self.board, **ship):
                     continue
 
                 break  # if we get here ship placement is valid so break out.
@@ -70,15 +71,17 @@ class Player(object):
 
     def get_shot(self):
         """Ask player to pick a location to shoot at."""
-        print(self.ships_list)
         shot = input("{}, enter a target location"
                      " on your opponents board: ".format(self.name))
 
-        if validation.are_valid_coordinates(shot):
+        if validation.are_valid_coordinates(shot, self.board,
+                                            self.shots_board):
             if validation.is_valid_shot(shot, self.shot_list):
                 self.shot_list.append(shot)
                 return shot
             else:
+                self.shots_board.display()
+                self.board.display()
                 print("You've already shot at that location."
                       "Please enter a new target location\n")
                 return self.get_shot()
@@ -98,7 +101,8 @@ class Player(object):
         column = constants.VALID_LETTERS.index(coordinates[0])
         row = int(coordinates[1:]) - 1
 
-        if validation.are_valid_coordinates(coordinates):
+        if validation.are_valid_coordinates(coordinates, self.board,
+                                            shots_board=self.shots_board):
             if validation.hit_or_miss(coordinates, board):
                 board[row][column] = constants.HIT
                 self.shots_board.get_board()[row][column] = constants.HIT
@@ -122,7 +126,13 @@ class Player(object):
         self.place_ships(constants.SHIP_INFO)
 
     def __init__(self, player='Player One'):
-        """Override class __init__ method."""
+        """Instantiate name, boards, and lists for player.
+
+        This sets up some default attributes for the player, such as
+        a board to place ships on and a board to place shots on, as well
+        as the players name and a list of the placement of their ships to
+        keep track of whether their fleet has been sunk via another method.
+        """
         self.name = input("{}, Please enter your name:"
                           .format(player)).capitalize()
         self.board = Board()

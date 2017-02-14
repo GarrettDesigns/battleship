@@ -8,8 +8,25 @@ import validation
 class Battleship(object):
     """Battleship main game class definition."""
 
-    def setup(self):
-        """Setup Battleship."""
+    def play_battleship(self):
+        """Method to start main battleship game.
+
+        Calling this method initializes players taking turns.
+        """
+        while True:
+            if validation.player_sunk(self.player_one, self.player_two):
+                break
+
+            self.player_one.shoot(self.player_two)
+            self.player_two.shoot(self.player_one)
+
+    def __init__(self):
+        """Class initialization method.
+
+        Set up Battleship players and game boards.
+        """
+        functions.clear_screen()
+
         # Players
         self.player_one = Player()
         self.player_two = Player("Player Two")
@@ -21,21 +38,8 @@ class Battleship(object):
         input('Please pass the board to {}, and look away.\n'
               'Press Enter to continue.'.format(self.player_one.name))
 
-    def __init__(self):
-        """Class initialization method."""
-        functions.clear_screen()
-        self.setup()
+        self.play_battleship()
 
-        while True:
-            if validation.player_sunk(self.player_one, self.player_two):
-                break
-
-            self.player_one.shoot(self.player_two)
-            self.player_two.shoot(self.player_one)
-
-            # test = input('Clear Player One ships?')
-            # if test == 'y':
-            #     self.player_one.ships_list = []
-
-
-Battleship()
+# Make sure script can't be executed when imported
+if __name__ == '__main__':
+    Battleship()
