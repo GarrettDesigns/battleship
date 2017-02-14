@@ -11,6 +11,8 @@ class Player(object):
 
     def add_to_ship_list(self, orientation, coordinates, ship_length):
         """Add player ships to list of ships on board."""
+        coordinates = coordinates.strip()
+
         column = constants.VALID_LETTERS.index(coordinates[0])
 
         if orientation == 'h':
@@ -66,8 +68,8 @@ class Player(object):
             functions.clear_screen()
             self.board.display()
 
-        input('{}, your ships have been placed!'
-              ' Press Enter to continue.'.format(self.name))
+        input('{}, your ships have been placed!\n'
+              'Press Enter to continue.'.format(self.name))
 
     def get_shot(self):
         """Ask player to pick a location to shoot at."""
@@ -78,12 +80,12 @@ class Player(object):
                                             self.shots_board):
             if validation.is_valid_shot(shot, self.shot_list):
                 self.shot_list.append(shot)
-                return shot
+                return shot.strip()
             else:
                 self.shots_board.display()
                 self.board.display()
                 print("You've already shot at that location."
-                      "Please enter a new target location\n")
+                      " Please enter a new target location\n")
                 return self.get_shot()
         else:
             return self.get_shot()
