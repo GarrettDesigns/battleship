@@ -117,6 +117,7 @@ def are_valid_coordinates(coords, player_board, shots_board):
 def is_valid_orientation(ship_orientation, player_board):
     """Check for valid orientation input."""
     if ship_orientation not in 'hv' or ship_orientation == '':
+        functions.clear_screen()
         player_board.display()
         print('\n{} is not a valid orientation,'
               'please enter either "h" or "v"'.format(ship_orientation))
