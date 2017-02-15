@@ -26,10 +26,13 @@ def print_board(board):
     By passing each number to chr() via the iterator variable c
     it will print out the letters A-J
     """
+    print('\n')
     print("   " + " ".join(constants.BOARD_HEADING))
 
     for row_num, row in enumerate(board):
         print(str(row_num + 1).rjust(2) + " " + (" ".join(row)))
+
+    print('\n')
 
 
 def get_ship_coordinates(ship_name, ship_length, player_name,
