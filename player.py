@@ -92,7 +92,7 @@ class Player(object):
         """
         shot = input("{}, enter a target location"
                      " on your opponents board: "
-                     .format(self.name)).replace(' ', '')
+                     .format(self.name)).lower().replace(' ', '')
 
         if validation.are_valid_coordinates(shot, self.board,
                                             self.shots_board):

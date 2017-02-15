@@ -42,7 +42,7 @@ def get_ship_coordinates(ship_name, ship_length, player_name,
     prompt = "{}, Choose a position for the {} ({} spaces):"
     ship_coordinates = input(prompt
                              .format(player_name, ship_name,
-                                     ship_length)).replace(' ', '')
+                                     ship_length)).lower().replace(' ', '')
 
     if validation.are_valid_coordinates(ship_coordinates,
                                         player_board, shots_board):
@@ -59,7 +59,8 @@ def get_ship_orientation(player_board):
     orientation is valid after receiving input.
     """
     ship_orientation = input("Please choose an orientation"
-                             " [V]ertical or [H]orizontal): ").replace(' ', '')
+                             " [V]ertical or [H]orizontal): "
+                             ).lower().replace(' ', '')
 
     if validation.is_valid_orientation(ship_orientation, player_board):
         return ship_orientation
