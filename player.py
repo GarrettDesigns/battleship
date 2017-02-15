@@ -10,9 +10,17 @@ class Player(object):
     """Define the player class."""
 
     def add_to_ship_list(self, orientation, coordinates, ship_length):
-        """Add player ships to list of ships on board."""
-        coordinates = coordinates.strip()
+        """Add player ships to list of ships on board.
 
+        Get column number via the index of VALID_LETTERS
+        which are equal to the string 'abcefghij'
+
+        If ship is horizontal add ship coordinates by
+        incrementing the column value which is a letter
+
+        If ship is vertical add ship incrementing the row
+        value which is an integer
+        """
         column = constants.VALID_LETTERS.index(coordinates[0])
 
         if orientation == 'h':
@@ -37,6 +45,10 @@ class Player(object):
 
         This method allowing players to run through a list of ships
         passed in and place each one simultaneously updating the players board.
+
+        For all ships in constants.SHIP_INFO as user for coordinates and
+        orientation and feed that info to the board's update method to place
+        the ship on the players board.
         """
         for ship_name, ship_length in ships:
 
@@ -72,7 +84,12 @@ class Player(object):
               'Press Enter to continue.'.format(self.name))
 
     def get_shot(self):
-        """Ask player to pick a location to shoot at."""
+        """Ask player to pick a location to shoot at.
+
+        Validate the shot coordinates and that the player has not
+        shot at that location previously, if those conditions are met
+        then return the shot.
+        """
         shot = input("{}, enter a target location"
                      " on your opponents board: "
                      .format(self.name)).replace(' ', '')
@@ -92,7 +109,11 @@ class Player(object):
             return self.get_shot()
 
     def shoot(self, other_player):
-        """Player method for guessing location of enemy ships."""
+        """Player method for guessing location of enemy ships.
+
+        Validate coordinates and whether the players shot has hit a ship
+        and update the players boards accordingly.
+        """
         board = other_player.board.get_board()
 
         functions.clear_screen()
