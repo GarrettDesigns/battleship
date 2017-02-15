@@ -44,9 +44,6 @@ class Battleship(object):
         self.player_one = Player()
         self.player_two = Player("Player Two")
 
-        # self.player_one.ships_list = ['d3', 'd4', 'd5']
-        # self.player_two.ships_list = ['b1', 'c1', 'd1', 'e1']
-
         # Prompt players to take turns setting up their boards
         self.player_one.set_up_board(self.player_two.name)
         self.player_two.set_up_board(self.player_one.name)
@@ -54,14 +51,15 @@ class Battleship(object):
         # Clear the screen and prepare the first player  \
         # to make targeting choices
         functions.clear_screen()
+        play_game = input('\nWould you like to start Battleship? Y/n').lower()
+
         input('Please pass the board to {}, and look away.\n'
               'Press Enter to continue.'.format(self.player_one.name))
-
-        play_game = input('\nWould you like to start Battleship? Y/n').lower()
 
         if play_game != 'n':
             # Initiate the game loop
             self.play_battleship()
+
 
 # Make sure script can't be executed when imported
 if __name__ == '__main__':

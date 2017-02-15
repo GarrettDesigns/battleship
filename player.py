@@ -86,7 +86,7 @@ class Player(object):
                 self.shots_board.display()
                 self.board.display()
                 print("\nYou've already shot at that location."
-                      " Please enter a new target location")
+                      " Please try again.")
                 return self.get_shot()
         else:
             return self.get_shot()
@@ -120,7 +120,10 @@ class Player(object):
     def set_up_board(self, other_player):
         """Method to describe logic governing each player's turn."""
         functions.clear_screen()
+        input('Please pass the Board to {}.'
+              ' Press Enter to continue'.format(self.name))
 
+        functions.clear_screen()
         input('{} prepare to place your fleet.'
               ' Please have {} look away and press Enter to begin.'
               .format(self.name, other_player))
