@@ -74,18 +74,19 @@ class Player(object):
     def get_shot(self):
         """Ask player to pick a location to shoot at."""
         shot = input("{}, enter a target location"
-                     " on your opponents board: ".format(self.name))
+                     " on your opponents board: "
+                     .format(self.name)).replace(' ', '')
 
         if validation.are_valid_coordinates(shot, self.board,
                                             self.shots_board):
             if validation.is_valid_shot(shot, self.shot_list):
                 self.shot_list.append(shot)
-                return shot.strip()
+                return shot
             else:
                 self.shots_board.display()
                 self.board.display()
-                print("You've already shot at that location."
-                      " Please enter a new target location\n")
+                print("\nYou've already shot at that location."
+                      " Please enter a new target location")
                 return self.get_shot()
         else:
             return self.get_shot()
@@ -135,7 +136,7 @@ class Player(object):
         as the players name and a list of the placement of their ships to
         keep track of whether their fleet has been sunk via another method.
         """
-        self.name = input("{}, Please enter your name:"
+        self.name = input("{}, Please enter your first name:"
                           .format(player)).capitalize()
         self.board = Board()
         self.shots_board = Board()

@@ -6,15 +6,14 @@ import functions
 
 def ship_exists(ship_name, board, ship_length, coordinates, orientation):
     """Check if a ship already occupies position of player input."""
-    coordinates = coordinates.strip()
-    orientation = orientation.strip()
-
     column = constants.VALID_LETTERS.index(coordinates[0])
     row = int(coordinates[1:]) - 1
 
     if orientation.lower() == 'h':
-        if constants.HORIZONTAL_SHIP in board[row][column:(column + ship_length)] or constants.VERTICAL_SHIP in \
-                board[row][column:(column + ship_length)]:
+        if constants.HORIZONTAL_SHIP in \
+            board[row][column:(column + ship_length)] \
+                or constants.VERTICAL_SHIP \
+                in board[row][column:(column + ship_length)]:
             return True
         else:
             return False
@@ -54,9 +53,7 @@ def hit_or_miss(coordinates, board):
 
 def is_valid_shot(shot, shot_list):
     """Define logic to ensure the player doesn't shoot the same spot twice."""
-    shot = shot.strip()
-
-    if shot.strip() not in shot_list:
+    if shot not in shot_list:
         return True
     else:
         functions.clear_screen()
@@ -65,8 +62,6 @@ def is_valid_shot(shot, shot_list):
 
 def are_valid_coordinates(coords, player_board, shots_board):
     """Check if ship coordinates are valid."""
-    coords = coords.strip()
-
     if len(coords) > 3:
         functions.clear_screen()
         if shots_board:
@@ -85,7 +80,7 @@ def are_valid_coordinates(coords, player_board, shots_board):
         if shots_board:
             shots_board.display()
         player_board.display()
-        print('\nYou must enter at least one column (letter)'
+        print('\nYou must enter at least one column (letter) '
               'and one row (number), ex. "b8"')
         return False
     else:
@@ -125,8 +120,6 @@ def are_valid_coordinates(coords, player_board, shots_board):
 
 def is_valid_orientation(orientation, player_board):
     """Check for valid orientation input."""
-    orientation = orientation.strip()
-
     if orientation not in 'hv' or orientation == '':
         functions.clear_screen()
         player_board.display()
@@ -175,9 +168,6 @@ def collision(player_board, ship_name, board, ship_length,
 
 def out_of_bounds(player_board, ship_length, coordinates, orientation):
     """Check if ship is outside of game board."""
-    coordinates = coordinates.strip()
-    orientation = orientation.strip()
-
     if orientation == 'v':
         if (ship_length + int(coordinates[1:]) - 1) > constants.BOARD_SIZE:
             functions.clear_screen()
@@ -192,6 +182,7 @@ def out_of_bounds(player_board, ship_length, coordinates, orientation):
         if (ship_length + constants.VALID_LETTERS.index(coordinates[0])) > \
                 constants.BOARD_SIZE:
             functions.clear_screen()
+            player_board.display()
             print('\nThat ship exceeds the board size.'
                   ' Please choose another location or orientation')
             return True

@@ -44,6 +44,9 @@ class Battleship(object):
         self.player_one = Player()
         self.player_two = Player("Player Two")
 
+        # self.player_one.ships_list = ['d3', 'd4', 'd5']
+        # self.player_two.ships_list = ['b1', 'c1', 'd1', 'e1']
+
         # Prompt players to take turns setting up their boards
         self.player_one.set_up_board(self.player_two.name)
         self.player_two.set_up_board(self.player_one.name)
