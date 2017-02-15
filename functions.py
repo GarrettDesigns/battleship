@@ -32,8 +32,6 @@ def print_board(board):
     for row_num, row in enumerate(board):
         print(str(row_num + 1).rjust(2) + " " + (" ".join(row)))
 
-    print('\n')
-
 
 def get_ship_coordinates(ship_name, ship_length, player_name,
                          player_board, shots_board=''):
