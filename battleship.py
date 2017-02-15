@@ -18,19 +18,19 @@ class Battleship(object):
         """
         # Loop over player turns until somebody satisfies the win condition
         while True:
-            if validation.player_sunk(self.player_one, self.player_two):
+            if validation.player_sunk(self.player_one):
                 self.player_one.board.display()
                 self.player_two.board.display()
                 break
+            else:
+                self.player_one.shoot(self.player_two)
 
-            # Prompt players to choose target locations turn by turn
-            self.player_one.shoot(self.player_two)
-            self.player_two.shoot(self.player_one)
-
-            test_win_condition = input('Would you like to sink Player One?').lower()
-
-            if test_win_condition == 'y':
-                self.player_one.ships_list = []
+            if validation.player_sunk(self.player_two):
+                self.player_one.board.display()
+                self.player_two.board.display()
+                break
+            else:
+                self.player_two.shoot(self.player_one)
 
     def __init__(self):
         """Class initialization method.

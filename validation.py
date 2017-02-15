@@ -130,18 +130,12 @@ def is_valid_orientation(orientation, player_board):
         return True
 
 
-def player_sunk(player_one, player_two):
+def player_sunk(player):
     """Detect if either player has lost all of their ships."""
-    if not player_one.ships_list:
+    if not player.ships_list:
         print('**************\n*** WINNER ***\n**************')
-        print("{} has sunk {}'s Battleship!"
-              .format(player_two.name, player_one.name))
-        return True
-
-    if not player_two.ships_list:
-        print('**************\n*** WINNER ***\n**************')
-        print("{} has sunk {}'s Battleship!"
-              .format(player_one.name, player_two.name))
+        print("{} sunk their opponent!"
+              .format(player.name))
         return True
 
     return False
