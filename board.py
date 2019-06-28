@@ -1,7 +1,7 @@
 """Module encapsulating all Board vars, classes and functions."""
 
-import constants
 from copy import deepcopy
+import constants
 import functions
 
 

@@ -9,6 +9,21 @@ import validation
 class Player(object):
     """Define the player class."""
 
+    def __init__(self, player='Player One'):
+        """Instantiate name, boards, and lists for player.
+
+        This sets up some default attributes for the player, such as
+        a board to place ships on and a board to place shots on, as well
+        as the players name and a list of the placement of their ships to
+        keep track of whether their fleet has been sunk via another method.
+        """
+        self.name = input("{}, Please enter your first name:"
+                          .format(player)).capitalize()
+        self.board = Board()
+        self.shots_board = Board()
+        self.shot_list = list()
+        self.ships_list = list()
+
     def add_to_ship_list(self, orientation, coordinates, ship_length):
         """Add player ships to list of ships on board.
 
@@ -30,7 +45,7 @@ class Player(object):
             for column in columns:
                 self.ships_list \
                     .append(constants.VALID_LETTERS[constants.VALID_LETTERS
-                            .index(column)] + row)
+                                                    .index(column)] + row)
 
         if orientation == 'v':
             row = int(coordinates[1:])
@@ -63,7 +78,7 @@ class Player(object):
                     "orientation":  orientation,
                     "coordinates": coordinates,
                     "ship_length": ship_length
-                    }
+                }
 
                 if validation.collision(self.board, ship_name,
                                         self.board.get_board(), **ship):
@@ -151,18 +166,3 @@ class Player(object):
 
         self.board.display()
         self.place_ships(constants.SHIP_INFO)
-
-    def __init__(self, player='Player One'):
-        """Instantiate name, boards, and lists for player.
-
-        This sets up some default attributes for the player, such as
-        a board to place ships on and a board to place shots on, as well
-        as the players name and a list of the placement of their ships to
-        keep track of whether their fleet has been sunk via another method.
-        """
-        self.name = input("{}, Please enter your first name:"
-                          .format(player)).capitalize()
-        self.board = Board()
-        self.shots_board = Board()
-        self.shot_list = list()
-        self.ships_list = list()

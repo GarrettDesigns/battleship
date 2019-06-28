@@ -9,6 +9,25 @@ def clear_screen():
     print("\033c", end="")
 
 
+def clear_screen_and_print_message(board, message, shots_board=False):
+    """This method will clear the screen, display the current
+    players board and print a provided message to the screen."""
+    clear_screen()
+    if shots_board:
+      shots_board.display()
+    board.display()
+    print(message)
+
+
+def clear_screen_and_print_result(result, boolean):
+    """This function will clear the screen, display the current
+    players board and print a provided message formatted with * characters
+    to the screen."""
+    clear_screen()
+    print('***********\n*** {} ***\n***********'.format(result))
+    return boolean
+
+
 def print_board(board):
     """Function to print the game board.
 
@@ -61,7 +80,7 @@ def get_ship_orientation(player_board):
     """
     ship_orientation = input("Please choose an orientation"
                              " [V]ertical or [H]orizontal): "
-                             ).lower().replace(' ', '')
+                            ).lower().replace(' ', '')
 
     if validation.is_valid_orientation(ship_orientation, player_board):
         return ship_orientation

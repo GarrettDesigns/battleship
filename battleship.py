@@ -1,6 +1,6 @@
 """Module that executes the Battleship Game."""
 
-import functions
+from functions import clear_screen
 from player import Player
 import validation
 
@@ -38,7 +38,7 @@ class Battleship(object):
         Set up Battleship players and game boards.
         """
         # Clear screen on game initialization
-        functions.clear_screen()
+        clear_screen()
 
         # Instatiate players
         self.player_one = Player()
@@ -50,7 +50,7 @@ class Battleship(object):
 
         # Clear the screen and prepare the first player  \
         # to make targeting choices
-        functions.clear_screen()
+        clear_screen()
         play_game = input('\nWould you like to start Battleship? Y/n').lower()
 
         input('Please pass the board to {}, and look away.\n'
